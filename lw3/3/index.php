@@ -46,10 +46,10 @@ foreach (count_chars($pass, 1) as $i => $val) {
 }
 
 $security = $countLen + ($countInt * 4) + (($n - $countUpLetter) * 2)  + (($n - $countLowLetter) * 2) - $countAll - $countRepit;
-echo "Надежность вашего пароля: $security \n";
-echo "количество цифр в пароле $countInt \n";
-echo "пароль содержит $countUpLetter символов в верхнем регистре.\n";
-echo "пароль содержит $countLowLetter символов в нижнем регистре.\n";
+echo "Надежность вашего пароля: $security.".PHP_EOL;
+echo "количество цифр в пароле $countInt".PHP_EOL;
+echo "пароль содержит $countUpLetter символов в верхнем регистре.".PHP_EOL;
+echo "пароль содержит $countLowLetter символов в нижнем регистре.".PHP_EOL;
 echo "повторяющихся символов $countRepit";
 
 
