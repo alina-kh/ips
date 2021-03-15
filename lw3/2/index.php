@@ -9,7 +9,7 @@ header("Content-Type: text/plain");
 function checkIdentifier()
 {
     $identif = $_GET['iden'];
-    $symb = ['!', '@', '#', '$', '%', '&', '?', '-', '+', '=', '~'];
+    $symb = ['!', '@', '#', '$', '%', '&', '?', '-', '+', '=', '~', '.', ',', '^', '*', '(', ')', '{', '}', '[', ']'];
     $int = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     if (in_array($identif, $symb)) 
     {
@@ -24,10 +24,9 @@ function checkIdentifier()
         }
         else 
         {
-            $res = 'Идентификатор буква';
+            $res =  'Идентификатор буква';
             return $res;
         } 
     }
 }
 echo checkIdentifier();
-
