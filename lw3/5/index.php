@@ -10,13 +10,31 @@ header("Content-Type: text/plain");
 //Email: <email>
 //Age: 30
 //В GET параметрах запроса передается email в виде ?email=ivan@mail.com.
-$email = $_GET['email'];
-if (isset($email)){
-  $content = file_get_contents('../4/data/'.$email.'.txt');
-
-  $array = explode(',', $content);
-  echo "first name: " . $array[0] . "\n";
-  echo "last name: ". $array[1]. "\n";
-  echo "email: " . $array[2]. "\n";
-  echo "age: " . $array[3]. "\n";
+function surveyInfo()
+{
+  $email = trim($_GET['email']);
+  if (isset($email))
+  {
+    if(file_exists('../4/data/'.$email.'.txt')) 
+    {
+      $content = file_get_contents('../4/data/'.$email.'.txt');
+      $array = explode(',', $content);
+      $res = "first name: " . $array[0] . "\n" . 
+            "last name: ". $array[1]. "\n" .
+            "email: " . $array[2]. "\n" . 
+            "age: " . $array[3]. "\n";
+      return $res; 
+    }
+    else 
+    {
+      $res = "Пользователя $email нет в системе";
+      return $res;
+    }
+  }
+  else 
+  {
+      $res = "Введите email";
+      return $res;
+  }    
 }
+echo surveyInfo();
