@@ -1,7 +1,16 @@
-﻿{Напечатайте в HttpResponse значение переменных окружения REQUEST_METHOD, QUERY_STRING, CONTENT_LENGTH, HTTP_USER_AGENT, HTTP_HOST
-
-Чтобы QUERY_STRING не было пустым нужно добавить в url адрес значение, например: ?name=Ivan
-
-CONTENT_LENGTH будет пустым поскольку вы отправляете GET запрос, пока отправить POST запрос не получиться, мы разберем это позже.
-}
+PROGRAM Print(INPUT, OUTPUT);
+USES Dos;
+BEGIN {Print}
+  WRITELN('Content-Type: text/plain');
+  WRITELN;
+  WRITELN(GetEnv('REQUEST_METHOD'));
+  WRITELN;
+  WRITELN(GetEnv('QUERY_STRING'));
+  WRITELN;
+  WRITELN(GetEnv('CONTENT_LENGTH'));
+  WRITELN;
+  WRITELN(GetEnv('HTTP_USER_AGENT'));
+  WRITELN;
+  WRITELN(GetEnv('HTTP_HOST'));
+END. {Print}
 
