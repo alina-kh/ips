@@ -1,20 +1,20 @@
 PROGRAM HelloUser(INPUT, OUTPUT);
 USES Dos;
 VAR
-  name: STRING;
+  Name: STRING;
 BEGIN
-  name := GetEnv('QUERY_STRING');
+  Name := GetEnv('QUERY_STRING');
   IF Name = ''
     THEN
     BEGIN
-	  WRITELN('Content-Type: text/plain');
-	  WRITELN;
+      WRITELN('Content-Type: text/plain');
+      WRITELN;
       WRITELN('Hello Anonimus');
-	END
+    END
   ELSE
     BEGIN
-	WRITELN('Content-Type: text/plain');
-    WRITELN;
-    WRITELN('Hello dear, ', name);
-	END;
+      WRITELN('Content-Type: text/plain');
+      WRITELN;
+      WRITELN('Hello dear, ', Name);
+    END;
 END.
