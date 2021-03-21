@@ -1,16 +1,31 @@
-﻿{Реализуйте программу SarahRevere. Результат должен печататься в HttpResponse, входные данные должны передаваться в QUERY_STRING в формате ?lanterns=1 или ?lanterns=2. В данном задании можно сравнивать QUERY_STRING с необходимой строкой}
 PROGRAM SarahRevere(INPUT, OUTPUT);
+USES Dos;
 VAR
-Lanterns: CHAR;
+  Lanterns: STRING;
+VAR
+  B: ShortString;
 BEGIN
-READ(Lanterns);
-IF Lanterns = '1'
-THEN
-WRITELN('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
-ELSE
-IF Lanterns = '2'
-THEN
-WRITELN('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque')
-ELSE
-WRITELN('Sarah didn''t say')
+  Lanterns := GetEnv('QUERY_STRING');
+  B := copy(Lanterns, 10, 1);
+  IF B = '1'
+    THEN
+    BEGIN
+	  WRITELN('Content-Type: text/plain');
+	  WRITELN;
+      WRITELN('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+	END
+  ELSE
+  IF B = '2'
+    THEN
+    BEGIN
+	  WRITELN('Content-Type: text/plain');
+      WRITELN;
+      WRITELN('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque');
+    END
+  ELSE
+    BEGIN
+	  WRITELN('Content-Type: text/plain');
+      WRITELN;
+      WRITELN('Sarah didnt say');
+    END;	
 END.
