@@ -1,38 +1,23 @@
-﻿{Реализуйте функцию на языке pascal для получения любого из параметров QUERY_STRING. Она должна принимать строку - название параметра и возвращать строку - значение параметра. Заголовок функции:
-
-	FUNCTION GetQueryStringParameter(Key: STRING): STRING;
-
-	Для проверки этой используйте следующую программу:
-PROGRAM WorkWithQueryString(INPUT, OUTPUT);
-USES
-  DOS;
-BEGIN {WorkWithQueryString}
-  WRITELN(‘First Name: ‘, GetQueryStringParameter(‘first_name’));
-  WRITELN(‘Last Name: ‘, GetQueryStringParameter(‘last_name’));
-  WRITELN(‘Age: ‘, GetQueryStringParameter(‘age’))
-END. {WorkWithQueryString}
-
-}
 PROGRAM HelloUser(INPUT, OUTPUT);
+USES 
+  Dos;
 VAR
-firstName: string;
-Var
-lastName: string;
-Var
-age: char;
+  firstName, lastName, qSrt, age:  string;
+  n: integer;
 BEGIN
-READLN(firstName);
-WRITELN('First Name: ', firstName);
-READLN(lastName);
-WRITELN('Last Name: ', lastName);
-READLN(age);
-WRITELN('Age: ', age);
+  qSrt := GetEnv('QUERY_STRING');
+  Delete(qSrt, 1, 10);
+  n := Pos('lastname=', qSrt);
+  firstName := Copy(qSrt, 1, n-2);
+  Delete(qSrt, 1, 9);
+  Delete(qSrt, 1, n-1);
+  n := Pos('&age=', qSrt);
+  lastName := Copy(qSrt, 1, n-1);
+  n := Pos('&age', qSrt);
+  age := Copy(qSrt,n+5, n);
+  WRITELN('Content-Type: text/plain');
+  WRITELN;
+  WRITELN('First Name: ', firstName);
+  WRITELN('Last Name: ', lastName);
+  WRITELN('Age: ', age);
 END.
-
-
-
-
-
-
-
-
