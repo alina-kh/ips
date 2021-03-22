@@ -1,5 +1,6 @@
 PROGRAM Print(INPUT, OUTPUT);
-USES Dos;
+USES 
+  Dos;
 BEGIN {Print}
   WRITELN('Content-Type: text/plain');
   WRITELN;
