@@ -15,46 +15,65 @@ header("Content-Type: text/plain");
 
 function passwordStrength()
 {
-    $pass = $_GET['password'];
-    $security = 0;
-    $n = strlen($pass);
+  $pass = $_GET['password'];
+  $security = 0;
+  $n = strlen($pass);
 
-    // К надежности прибавляется (4*n), где n - количество всех символов пароля
-    $countLen = 4 * $n;
+  // К надежности прибавляется (4*n), где n - количество всех символов пароля
+  $countLen = $n;
 
-    // К надежности прибавляется +(n*4), где n - количество цифр в пароле
-    $countInt = preg_match_all('/\\d/', $pass);
+  // К надежности прибавляется +(n*4), где n - количество цифр в пароле
+  $countInt = preg_match_all('/\\d/', $pass);
 
-    //если пароль содержит n символов в верхнем регистре
-    $countUpLetter = preg_match_all('/[A-Z]/', $pass);
+  //если пароль содержит n символов в верхнем регистре
+  $countUpLetter = preg_match_all('/[A-Z]/', $pass);
+  
+  if ($countUpLetter != 0)
+  {
+    $upLetter = ($n - $countUpLetter) * 2;
+  }
+  else {
+    $upLetter = 0;
+  }
+  //если пароль содержит n символов в нижнем регистре
+  $countLowLetter = preg_match_all('/[a-z]/', $pass);
 
-    //если пароль содержит n символов в нижнем регистре
-    $countLowLetter = preg_match_all('/[a-z]/', $pass);
+  if ($countLowLetter != 0)
+  {
+    $lowLetter = ($n - $countLowLetter) * 2;
+  }
+  else 
+  {
+    $lowLetter = 0;
+  }
+  // Если пароль состоит только из цифр или только из букв вычитаем число равное количеству символов.
+  if (ctype_digit($pass) || (ctype_alpha($pass))) 
+  {
+    $countAll = $n;
+  }
+  else 
+  {
+    $countAll = 0;
+  }
 
-    // Если пароль состоит только из цифр или только из букв вычитаем число равное количеству символов.
-    if (ctype_digit($pass) || (ctype_alpha($pass))) 
-    {
-        $countAll = $n;
-    }
-    else 
-    {
-        $countAll = 0;
-    }
+  //За каждый повторяющийся символ в пароле вычитается количество повторяющихся символов
+  $countRepit = 0;
+  foreach (count_chars($pass, 1) as $i => $val) 
+  {
+    if ($val > 1) {   
+      $countRepit += $val;
+    }  
+  }
+  
+  echo "К надежности прибавляется (4*n), где n - количество всех символов пароля " . 4 * $countLen ."\n";
+  echo "К надежности прибавляется +(n*4), где n - количество цифр в пароле " . 4 * $countInt ."\n";
+  echo "К надежности прибавляется +((len-n)*2) в случае, если пароль содержит n символов в верхнем регистре " . $upLetter ."\n";
+  echo "К надежности прибавляется +((len-n)*2) в случае, если пароль содержит n символов в нижнем регистре " . $lowLetter ."\n";
+  echo "Если пароль состоит только из букв вычитаем число равное количеству символов " . $countAll ."\n";
+  echo "За каждый повторяющийся символ в пароле вычитается количество повторяющихся символов " . $countRepit . "\n";
 
-    //За каждый повторяющийся символ в пароле вычитается количество повторяющихся символов
-    $countRepit = 0;
-    foreach (count_chars($pass, 1) as $i => $val) 
-    {
-        if ($val > 1) {   
-            $countRepit += $val;
-        }  
-    }
-    
-    $security = $countLen + ($countInt * 4) + (($n - $countUpLetter) * 2)  + (($n - $countLowLetter) * 2) - $countAll - $countRepit;
-    return $security;
+  $security = (4 * $countLen) + ($countInt * 4) + $lowLetter + $upLetter - $countAll - $countRepit;
+  return $security;	 
 }
 
 echo "Надежность пароля " . passwordStrength();
-
-
-
