@@ -15,26 +15,25 @@ function surveyInfo()
   $email = trim($_GET['email']);
   if (isset($email))
   {
-    if(file_exists('../4/data/'.$email.'.txt')) 
+    $filePath = '../4/data/'.$email.'.txt'; 
+    if (file_exists($filePath)) 
     {
-      $content = file_get_contents('../4/data/'.$email.'.txt');
+      $content = file_get_contents($filePath);
       $array = explode(',', $content);
       $res = "first name: " . $array[0] . "\n" . 
-            "last name: ". $array[1]. "\n" .
-            "email: " . $array[2]. "\n" . 
-            "age: " . $array[3]. "\n";
-      return $res; 
+        "last name: ". $array[1]. "\n" .
+        "email: " . $array[2]. "\n" . 
+        "age: " . $array[3]. "\n";          
     }
     else 
     {
       $res = "Пользователя $email нет в системе";
-      return $res;
     }
   }
   else 
   {
-      $res = "Введите email";
-      return $res;
-  }    
+    $res = "Введите email";
+  }
+	return $res;    
 }
 echo surveyInfo();
