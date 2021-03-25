@@ -8,25 +8,17 @@ header("Content-Type: text/plain");
 
 function checkIdentifier()
 {
-    $identif = $_GET['iden'];
-    $symb = ['!', '@', '#', '$', '%', '&', '?', '-', '+', '=', '~', '.', ',', '^', '*', '(', ')', '{', '}', '[', ']'];
-    $int = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    if (in_array($identif, $symb)) 
-    {
-        $res = 'Нужно ввести букву или цифру';
-        return $res;
-    }
-    else
-    { 
-        if (in_array($identif, $int)) {
-            $res = 'Идентификатор цифра';
-            return $res;
-        }
-        else 
-        {
-            $res =  'Идентификатор буква';
-            return $res;
-        } 
-    }
+  $id = $_GET['id'];
+  $int = preg_match("/^[0-9]/", $id);
+
+  if ($int === 1) 
+  {
+    $res = 'no, идентификатор не может начинаться с цифры';          
+  }
+	else 
+	{
+		$res = 'yes';
+  }   
+	return $res;
 }
 echo checkIdentifier();
