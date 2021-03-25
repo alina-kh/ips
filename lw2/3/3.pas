@@ -1,21 +1,20 @@
 PROGRAM HelloUser(INPUT, OUTPUT);
-USES 
-  Dos;
+USES Dos;
 VAR
-  Name: STRING;
+  name, messages, x: STRING;
+  n, xLength: integer;
 BEGIN
-  Name := GetEnv('QUERY_STRING');
-  IF Name = ''
+  x := GetEnv('QUERY_STRING');
+  xLength := length(x);
+  n := Pos('name=', x);
+  name := copy(x, n + 5, xLength);
+  messages := 'Hello dear,' + name;
+  WRITELN('Content-Type: text/plain');
+  WRITELN;
+  IF name = ''
   THEN
   BEGIN
-    WRITELN('Content-Type: text/plain');
-    WRITELN;
-    WRITELN('Hello Anonimus');
-  END
-  ELSE
-  BEGIN
-    WRITELN('Content-Type: text/plain');
-    WRITELN;
-    WRITELN('Hello dear, ', Name);
+    messages := 'Hello Anonimus';
   END;
+  WRITELN(messages);
 END.
